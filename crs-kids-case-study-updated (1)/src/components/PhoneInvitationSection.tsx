@@ -77,30 +77,7 @@ export const PhoneInvitationSection: React.FC = () => {
       aria-label="Mikro Deneyim / Davetiye"
       className="relative py-28 px-4 sm:px-6 max-w-7xl mx-auto"
     >
-      {/* Background colorful organic curved paths */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
-        <svg viewBox="0 0 1200 800" className="w-full h-full" fill="none">
-          <path
-            d="M -100 200 C 200 50, 400 500, 700 250 S 1100 600, 1300 300"
-            stroke="#FF5E3A"
-            strokeWidth="10"
-            strokeLinecap="round"
-          />
-          <path
-            d="M -50 600 C 300 750, 500 200, 850 450 S 1150 150, 1350 400"
-            stroke="#2AC4A4"
-            strokeWidth="8"
-            strokeDasharray="14 10"
-          />
-          <path
-            d="M 100 -50 C 350 300, 200 650, 600 700 S 1000 500, 1250 850"
-            stroke="#F5B72E"
-            strokeWidth="6"
-          />
-        </svg>
-      </div>
-
-      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         {/* LEFT COLUMN: Narrative & 4 Story Cards */}
         <div className="lg:col-span-6 space-y-8">
           <div className="space-y-4">
@@ -181,7 +158,7 @@ export const PhoneInvitationSection: React.FC = () => {
         </div>
 
         {/* RIGHT COLUMN: ONE LARGE STICKY SMARTPHONE */}
-        <div className="lg:col-span-6 flex justify-center lg:sticky lg:top-24">
+        <div className="lg:col-span-6 flex justify-center">
           <div className="relative w-[320px] sm:w-[360px] h-[660px] bg-[#090D16] rounded-[52px] p-3.5 border-[7px] border-slate-800 shadow-[0_30px_90px_rgba(0,0,0,0.9),0_0_50px_rgba(255,94,58,0.2)] ring-1 ring-white/10 flex flex-col justify-between select-none">
             {/* Dynamic Island */}
             <div className="absolute top-4 left-1/2 -translate-x-1/2 w-28 h-5 bg-black rounded-full z-30 flex items-center justify-between px-3">

@@ -1,23 +1,61 @@
-import React from 'react';
-import { CurvedLineMotif } from './CurvedLineMotif';
+import React, { useEffect, useRef } from 'react';
 
 /**
- * Fixed, full-viewport animated background of thick neon diagonal lines + dot grid,
- * matching the CRS Kids brand motif. Sits behind Navigation and all sections (z-0),
- * stays anchored while the page scrolls so the motion reads as ambient/atmospheric
- * rather than tied to any one section.
+ * Fixed, full-viewport background: flat black checkered (grid) pattern.
+ * The area under the cursor softly glows, revealing the grid lines more
+ * brightly nearby — kept minimal/clean on purpose.
  */
 export const SiteBackgroundMotif: React.FC = () => {
+  const glowRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handlePointerMove = (e: PointerEvent) => {
+      const el = glowRef.current;
+      if (!el) return;
+      el.style.setProperty('--glow-x', `${e.clientX}px`);
+      el.style.setProperty('--glow-y', `${e.clientY}px`);
+      el.style.opacity = '1';
+    };
+    const handlePointerLeave = () => {
+      const el = glowRef.current;
+      if (el) el.style.opacity = '0';
+    };
+
+    window.addEventListener('pointermove', handlePointerMove);
+    document.documentElement.addEventListener('mouseleave', handlePointerLeave);
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove);
+      document.documentElement.removeEventListener('mouseleave', handlePointerLeave);
+    };
+  }, []);
+
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none select-none">
-      {/* Base dark gradient wash so the lines stay soft/silik rather than harsh */}
-      <div className="absolute inset-0 bg-[#070A12]" />
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[#0B0F19] via-[#070A12] to-[#05070D]" />
+    <div className="fixed inset-0 z-0 pointer-events-none select-none overflow-hidden">
+      {/* Flat black base */}
+      <div className="absolute inset-0 bg-black" />
 
-      <CurvedLineMotif variant="neon-field" animated={true} className="opacity-70" />
+      {/* Checkered / grid lines */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage:
+            'linear-gradient(to right, rgba(255,255,255,0.055) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.055) 1px, transparent 1px)',
+          backgroundSize: '46px 46px',
+        }}
+      />
 
-      {/* Vignette so content edges stay readable */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,#070A12_92%)]" />
+      {/* Soft glow that follows the cursor, lighting up nearby grid lines */}
+      <div
+        ref={glowRef}
+        className="absolute inset-0 opacity-0 transition-opacity duration-500 ease-out"
+        style={{
+          background:
+            'radial-gradient(420px circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(255,94,58,0.10), rgba(245,183,46,0.06) 35%, transparent 65%)',
+        }}
+      />
+
+      {/* Gentle vignette so content edges stay readable */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,#000_96%)]" />
     </div>
   );
 };
