@@ -57,69 +57,74 @@ export const CurvedLineMotif: React.FC<CurvedLineMotifProps> = ({
             </filter>
           </defs>
 
-          {/* Wide soft glow duplicate underneath the main diagonal (creates the "silik neon" haze) */}
-          <motion.line
-            x1="-120" y1="60" x2="1180" y2="1060"
+          {/* Wide soft glow duplicate underneath the main curve (creates the "silik neon" haze) */}
+          <motion.path
+            d="M -150 180 C 120 40, 280 400, 520 260 C 760 120, 900 480, 1150 340 C 1320 250, 1420 380, 1560 300"
             stroke={`url(#${gradA})`}
             strokeWidth="26"
+            fill="none"
             filter={`url(#${glowStrong})`}
             opacity="0.35"
-            animate={animated ? { x1: [-160, -80, -160], y1: [40, 80, 40] } : {}}
+            animate={animated ? { x: [-20, 20, -20], y: [-10, 15, -10] } : {}}
             transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
           />
 
-          {/* Primary thick dashed diagonal line, top-left to center */}
-          <motion.line
-            x1="-120" y1="60" x2="1180" y2="1060"
+          {/* Primary thick dashed curvy ribbon, sweeping across the top */}
+          <motion.path
+            d="M -150 180 C 120 40, 280 400, 520 260 C 760 120, 900 480, 1150 340 C 1320 250, 1420 380, 1560 300"
             stroke={`url(#${gradA})`}
             strokeWidth="4.5"
             strokeDasharray="20 16"
             strokeLinecap="round"
+            fill="none"
             filter={`url(#${glowSoft})`}
             animate={
               animated
-                ? { strokeDashoffset: [0, -260], x1: [-160, -80, -160], y1: [40, 80, 40] }
+                ? { strokeDashoffset: [0, -260], x: [-20, 20, -20], y: [-10, 15, -10] }
                 : {}
             }
             transition={{
               strokeDashoffset: { duration: 16, repeat: Infinity, ease: 'linear' },
-              x1: { duration: 14, repeat: Infinity, ease: 'easeInOut' },
-              y1: { duration: 14, repeat: Infinity, ease: 'easeInOut' },
+              x: { duration: 14, repeat: Infinity, ease: 'easeInOut' },
+              y: { duration: 14, repeat: Infinity, ease: 'easeInOut' },
             }}
           />
 
-          {/* Secondary thick dashed diagonal, upper right sweeping down */}
-          <motion.line
-            x1="1560" y1="-40" x2="700" y2="760"
+          {/* Secondary curvy ribbon, looping from upper right down through the middle */}
+          <motion.path
+            d="M 1580 -40 C 1320 60, 1260 340, 980 300 C 760 270, 640 480, 460 420 C 320 375, 220 460, 120 500"
             stroke={`url(#${gradB})`}
             strokeWidth="3.5"
             strokeDasharray="4 4 18 14"
             strokeLinecap="round"
+            fill="none"
             filter={`url(#${glowSoft})`}
             opacity="0.75"
             animate={
               animated
-                ? { strokeDashoffset: [0, 220], x2: [680, 740, 680] }
+                ? { strokeDashoffset: [0, 220], x: [10, -15, 10], y: [-8, 12, -8] }
                 : {}
             }
             transition={{
               strokeDashoffset: { duration: 20, repeat: Infinity, ease: 'linear' },
-              x2: { duration: 18, repeat: Infinity, ease: 'easeInOut' },
+              x: { duration: 18, repeat: Infinity, ease: 'easeInOut' },
+              y: { duration: 18, repeat: Infinity, ease: 'easeInOut' },
             }}
           />
 
-          {/* Third, faint low diagonal drifting across the lower half */}
-          <motion.line
-            x1="-80" y1="920" x2="1500" y2="140"
+          {/* Third, faint low curvy ribbon drifting across the lower half */}
+          <motion.path
+            d="M -100 880 C 180 780, 340 980, 560 860 C 800 730, 960 920, 1200 800 C 1360 720, 1460 800, 1560 760"
             stroke={`url(#${gradC})`}
             strokeWidth="2.5"
             strokeDasharray="10 10"
             strokeLinecap="round"
+            fill="none"
             opacity="0.45"
-            animate={animated ? { strokeDashoffset: [0, -180], y1: [900, 940, 900] } : {}}
+            animate={animated ? { strokeDashoffset: [0, -180], y: [-15, 15, -15] } : {}}
             transition={{
               strokeDashoffset: { duration: 24, repeat: Infinity, ease: 'linear' },
-              y1: { duration: 22, repeat: Infinity, ease: 'easeInOut' },
+              y: { duration: 22, repeat: Infinity, ease: 'easeInOut' },
             }}
           />
 
@@ -151,10 +156,10 @@ export const CurvedLineMotif: React.FC<CurvedLineMotifProps> = ({
 
           {/* Neon node dots riding along the primary diagonal */}
           {[
-            { cx: 210, cy: 340, r: 6, fill: '#4F75FF' },
-            { cx: 480, cy: 590, r: 8, fill: '#F5B72E' },
-            { cx: 860, cy: 340, r: 5, fill: '#2AC4A4' },
-            { cx: 1120, cy: 160, r: 7, fill: '#FF5E3A' },
+            { cx: 260, cy: 175, r: 6, fill: '#4F75FF' },
+            { cx: 520, cy: 260, r: 8, fill: '#F5B72E' },
+            { cx: 900, cy: 480, r: 5, fill: '#2AC4A4' },
+            { cx: 1150, cy: 340, r: 7, fill: '#FF5E3A' },
           ].map((dot, i) => (
             <motion.circle
               key={i}
